@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ $.Values.platformName }}-{{ $.Values.clusterName }}
+  namespace: {{ $.Values.argoNamespace | default "argo-cd" }}
+  labels:
+    # TODO
+
+spec:
+  description: Cluster addons for the in-cluster applications
+
+  # TODO Variabilize the sourceRepos
+  sourceRepos:
+  - "*"
+  
+  destinations:
+  - name: in-cluster
+    namespace: "*"
+  - server: https://kubernetes.default.svc
+    namespace: "*"
+
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  
+  namespaceResourceWhitelist:
+  - group: "*"
+    kind: "*"
+
+  # TODO Verify if this is correct
+  orphanedResources:
+    warn: true
+    ignore:
+    - group: "argoproj.io"
+      kind: "*"
+      name: "*"
+    - kind: "Secret"
+      name: "*"
+

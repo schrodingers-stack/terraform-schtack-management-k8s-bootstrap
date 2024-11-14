@@ -1,0 +1,59 @@
+{{- range $value := $.Values.clusterAddOns.addOnList }}
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ $value.name }}
+  namespace: {{ $.Values.argoNamespace | default "argo-cd" }}
+  labels:
+    # TODO
+
+spec:
+  # TODO Maybe template the project name in the helpers.tpl
+  project: {{ $.Values.platformName }}-{{ $.Values.clusterName }}
+
+  sources:
+  - repoURL: {{ $value.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $value.name) }}
+    targetRevision: {{ $value.chartTargetRevision }}
+    path: {{ $value.chartPath | default "." }}
+    helm:
+      releaseName: {{ $value.name }}
+      valueFiles:
+      {{- range $file := $value.defaultValuesFiles }}
+      - {{ $file }}
+      {{- end }}
+      - $values/{{ $.Values.platformName }}/{{ $value.name }}.yaml
+      - $values/{{ $.Values.platformName }}/{{ $.Values.clusterName }}/{{ $value.name }}.yaml
+      valuesObject:
+        {{ $value.valuesObject | toYaml }}
+  - repoURL: {{ $value.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
+    targetRevision: {{ $value.valuesTargetRevision | default "HEAD" }}
+    ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ $value.name }}
+
+  info:
+  - name: Chart repository
+    value: {{ $value.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $value.name) }}
+  - name: Values repository
+    value: {{ $value.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
+
+  syncPolicy:
+    {{- if or $.Values.clusterAddOns.autoSync $value.autoSync }}
+    automated:
+      prune: true
+      selfHeal: true
+    {{- end }}
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 3m
+
+{{- end }}
