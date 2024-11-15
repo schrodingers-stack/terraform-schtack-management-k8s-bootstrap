@@ -1,10 +1,30 @@
+# Name of the platform/subscription this chart is being deployed for.
+# Typically this is the name of what the cluster will be used for. In this case, it is `management`, because this chart
+# is for managing the management cluster.
 platformName: management
 
+# Name of the cluster.
+# This is the name the Kubernetes cluster where the add-ons are being deployed, typically the color of the cluster when
+# following the blue-green deployment strategy.
 clusterName: management-color
 
-argoNamespace: argo-cd
+# Provide a name in place of the default name for the chart.
+# Currently only used for the AppProject resource.
+# @default -- `.Values.platformName`-`.Values.clusterName`
+nameOverride: ""
 
+# Completely override the fully qualified name of the chart.
+fullnameOverride: ""
+
+# Override the namespace where the chart resources are deployed, typically the namespace where Argo CD resides.
+namespaceOverride: ""
+
+# Common labels for the all resources.
+commonLabels: {}
+
+# Cluster add-ons configuration.
 clusterAddOns:
+  # List of add-ons to be deployed.
   addOnList: []
   # TODO Properly document this structure
   # - name: add-on-name
@@ -20,7 +40,12 @@ clusterAddOns:
   #         yaml: true
   #   namespace: destination-namespace
   #   autoSync: true
+  #   additionalLabels:
+  #     label: value
+  #   annotations:
+  #     annotation: value
 
+  # URL of the values repository that will be used by default for every add-on.
   commonValuesRepoURL: https://github.com/user-or-organization/values-repository
   
   # TODO Not yet implemented

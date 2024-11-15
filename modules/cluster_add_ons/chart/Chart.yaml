@@ -1,6 +1,5 @@
 apiVersion: v2
-name: management-cluster-bootstrap
-description: A Helm chart for bootstrapping a management Kubernetes cluster
-type: application
-version: 0.1.0
+name: management-k8s-add-ons
+version: 0.1.0 # TODO Find a way to dynamically set this
+description: Helm chart for bootstrapping an Argo CD AppProject and Applications for managing the cluster add-ons
 home: https://schtack.cloud

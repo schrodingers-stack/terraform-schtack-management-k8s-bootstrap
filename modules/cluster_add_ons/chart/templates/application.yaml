@@ -1,48 +1,65 @@
-{{- range $value := $.Values.clusterAddOns.addOnList }}
+{{- range $addOn := $.Values.clusterAddOns.addOnList }}
 
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ $value.name }}
-  namespace: {{ $.Values.argoNamespace | default "argo-cd" }}
+  name: {{ $addOn.name }}
+  namespace: {{ template "mgmt-add-ons.namespace" $ }}
   labels:
-    # TODO
+    {{- include "mgmt-add-ons.labels" (dict "context" $ ) | nindent 4 }}
+    {{- with $.Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with $addOn.additionalLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with $addOn.annotations }}
+  annotations:
+    {{- range $key, $addOn := . }}
+    {{ $key }}: {{ $addOn | quote }}
+    {{- end }}
+  {{- end }}
 
 spec:
-  # TODO Maybe template the project name in the helpers.tpl
-  project: {{ $.Values.platformName }}-{{ $.Values.clusterName }}
+  project: {{ template "mgmt-add-ons.fullname" $ }}
 
   sources:
-  - repoURL: {{ $value.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $value.name) }}
-    targetRevision: {{ $value.chartTargetRevision }}
-    path: {{ $value.chartPath | default "." }}
+  - repoURL: {{ $addOn.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) }}
+    targetRevision: {{ $addOn.chartTargetRevision }}
+    path: {{ $addOn.chartPath | default "." }}
     helm:
-      releaseName: {{ $value.name }}
+      releaseName: {{ $addOn.name }}
       valueFiles:
-      {{- range $file := $value.defaultValuesFiles }}
+      {{- range $file := $addOn.defaultValuesFiles }}
       - {{ $file }}
       {{- end }}
-      - $values/{{ $.Values.platformName }}/{{ $value.name }}.yaml
-      - $values/{{ $.Values.platformName }}/{{ $.Values.clusterName }}/{{ $value.name }}.yaml
+      - $values/{{ $.Values.platformName }}/{{ $addOn.name }}.yaml
+      - $values/{{ $.Values.platformName }}/{{ $.Values.clusterName }}/{{ $addOn.name }}.yaml
+      {{- if $addOn.extraValues }}
       valuesObject:
-        {{ $value.valuesObject | toYaml }}
-  - repoURL: {{ $value.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
-    targetRevision: {{ $value.valuesTargetRevision | default "HEAD" }}
+        {{ $addOn.extraValues | toYaml }}
+      {{- end }}
+  - repoURL: {{ $addOn.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
+    targetRevision: {{ $addOn.valuesTargetRevision | default "HEAD" }}
     ref: values
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: {{ $value.name }}
+    {{- if $addOn.namespace }}
+    namespace: {{ $addOn.namespace }}
+    {{- else -}}
+    namespace: {{ $addOn.name }}
+    {{- end }}
 
   info:
   - name: Chart repository
-    value: {{ $value.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $value.name) }}
+    value: {{ $addOn.chartRepoURL | default (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) }}
   - name: Values repository
-    value: {{ $value.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
+    value: {{ $addOn.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
 
   syncPolicy:
-    {{- if or $.Values.clusterAddOns.autoSync $value.autoSync }}
+    {{- if or $.Values.clusterAddOns.autoSync $addOn.autoSync }}
     automated:
       prune: true
       selfHeal: true

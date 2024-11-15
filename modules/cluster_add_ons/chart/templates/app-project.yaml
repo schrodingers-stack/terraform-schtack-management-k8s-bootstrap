@@ -1,24 +1,60 @@
+{{/* Begin local variables preparation. */}}
+
+{{/* Create local list of repositories. */}}
+{{- $sourceRepos := list $.Values.clusterAddOns.commonValuesRepoURL -}}
+{{/* Create local list of namespaces. */}}
+{{- $defaultNamespace := include "mgmt-add-ons.namespace" $ -}}
+{{- $namespaces := list $defaultNamespace -}}
+{{/* Range over .Values.clusterAddOns.addOnList and add any extra namespaces or repositories to the respective lists. */}}
+{{- range $addOn := $.Values.clusterAddOns.addOnList -}}
+  {{ if $addOn.chartRepoURL }}
+    {{ $sourceRepos = append $sourceRepos $addOn.chartRepoURL }}
+  {{ else }}
+    {{ $sourceRepos = append $sourceRepos (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) }}
+  {{ end }}
+  {{ if $addOn.valuesRepoURL }}
+    {{ $sourceRepos = append $sourceRepos $addOn.valuesRepoURL }}
+  {{ end }}
+  {{ if $addOn.namespace }}
+    {{ $namespaces = append $namespaces $addOn.namespace }}
+  {{ end }}
+{{- end -}}
+{{/* Remove duplicates from the lists. */}}
+{{- $sourceRepos = $sourceRepos | uniq -}}
+{{- $namespaces = $namespaces | uniq -}}
+
+{{/* End local variables preparation. */}}
+
+{{/* Create the AppProject resources for the cluster add-ons. */}}
+{{- range $addOn := $.Values.clusterAddOns.addOnList }}
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: {{ $.Values.platformName }}-{{ $.Values.clusterName }}
-  namespace: {{ $.Values.argoNamespace | default "argo-cd" }}
+  name: {{ template "mgmt-add-ons.fullname" $ }}
+  namespace: {{ template "mgmt-add-ons.namespace" $ }}
   labels:
-    # TODO
+    {{- include "mgmt-add-ons.labels" (dict "context" $ ) | nindent 4 }}
+    {{- with $.Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 
 spec:
   description: Cluster addons for the in-cluster applications
 
-  # TODO Variabilize the sourceRepos
   sourceRepos:
-  - "*"
+  {{- range $repo := $sourceRepos }}
+  - {{ $repo }}
+  {{- end }}
   
   destinations:
+  {{- range $namespace := $namespaces }}
   - name: in-cluster
-    namespace: "*"
+    namespace: {{ $namespace }}
   - server: https://kubernetes.default.svc
-    namespace: "*"
+    namespace: {{ $namespace }}
+  {{- end }}
 
   clusterResourceWhitelist:
   - group: "*"
@@ -38,3 +74,4 @@ spec:
     - kind: "Secret"
       name: "*"
 
+{{- end }}
