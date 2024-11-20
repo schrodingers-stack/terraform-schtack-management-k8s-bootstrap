@@ -15,7 +15,7 @@ variable "argo_cd_bootstrap_target_revision" {
 
 variable "cluster_add_ons_helm_values" {
   type        = string
-  nullable    = true
+  default     = null
   description = <<-EOT
     The values to be passed to the `management-k8s-add-ons` Helm chart. These should be in raw YAML format.
 
