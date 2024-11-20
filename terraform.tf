@@ -8,6 +8,9 @@ terraform {
     helm = {
       source = "hashicorp/helm"
     }
+    time = {
+      source = "hashicorp/time"
+    }
     utils = {
       source = "cloudposse/utils"
     }
