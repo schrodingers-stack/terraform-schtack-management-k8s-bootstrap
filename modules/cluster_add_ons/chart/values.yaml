@@ -24,9 +24,41 @@ commonLabels: {}
 
 # Cluster add-ons configuration.
 clusterAddOns:
-  # List of add-ons to be deployed.
+  # List of add-ons to be deployed. By default, no add-ons are deployed.
   addOnList: []
-  # TODO Properly document this structure
+  # Add-on configuration object.
+  # @required -- name, chartTargetRevision
+  #
+  # For each add-on, a new Argo CD Application resource will be created.
+  # Description of the fields:
+  # - `name`: name of the add-on; REQUIRED;
+  # - `chartRepoURL`: URL of the Helm chart repository which will be the source of the chart; defaults to the 
+  #                   Schrödinger's Stack Helm repository that has the same name as the add-on name above (e.g. 
+  #                   `argo-cd` will default to `https://github.com/schrodingers-stack/helm-add-on-name`);
+  # - `chartTargetRevision`: target revision of the repository where the chart is located; REQUIRED;
+  # - `chartPath`: path to the chart in the repository; defaults to the root of the repository;
+  # - `valuesRepoURL`: URL of the values repository which will be the source of the values; if not provided, it will
+  #                    default to the value provided on the global `commonValuesRepoURL` value;
+  # - `valuesTargetRevision`: target revision of the repository where the values are located; defaults to `HEAD`;
+  # - `defaultValuesFiles`: list of default values files that will be used by the chart, usually some of the multiple 
+  #                         values files found in the chart's repository; the order of the files, is important, each 
+  #                         file overriding the content of the previous ones; defaults to an empty list;
+  # - `extraValues`: extra values in YAML exactly as expected by the destination chart; takes precedence over the values
+  #                  files provided by `valuesRepoURL` and `defaultValuesFiles`; defaults to an empty object;
+  # - `namespace`: namespace where the resources of the add-on will be deployed; if not provided, it will default to the
+  #                name of the add-on;
+  # - `autoSync`: whether the application should be automatically synced; defaults to the global `autoSync` value;
+  # - `additionalLabels`: additional labels to be added to the Argo CD Application of the add-on;
+  # - `annotations`: annotations to be added to the Argo CD Application of the add-on;
+  #
+  # Order in which the values are parsed (the previous is overridden by the next):
+  #   1. `defaultValuesFiles` (order of the files is important)
+  #   2. `valuesRepoURL` the files in the repository, one global for the platform, another specific for the cluster)
+  #   3. `commonValues` (global attribute)
+  #   4. `extraValues`
+  #
+  # Complete example:
+  #
   # - name: add-on-name
   #   chartRepoURL: https://github.com/schrodingers-stack/helm-add-on-name
   #   chartTargetRevision: vX.Y.Z
@@ -47,7 +79,7 @@ clusterAddOns:
 
   # URL of the values repository that will be used by default for every add-on.
   commonValuesRepoURL: https://github.com/user-or-organization/values-repository
-  
+
   # TODO Not yet implemented
   commonValues:
 
