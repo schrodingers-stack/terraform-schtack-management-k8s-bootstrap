@@ -5,6 +5,8 @@ module "argo_cd_bootstrap" {
   target_revision = var.argo_cd_bootstrap_target_revision
 }
 
-# module "cluster_addons" {
-#   source = "./modules/cluster_addons"
-# }
+module "cluster_add_ons" {
+  source = "./modules/cluster_add_ons"
+
+  helm_values = var.cluster_add_ons_helm_values
+}
