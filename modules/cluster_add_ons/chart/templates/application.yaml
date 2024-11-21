@@ -16,8 +16,8 @@ metadata:
     {{- end }}
   {{- with $addOn.annotations }}
   annotations:
-    {{- range $key, $addOn := . }}
-    {{ $key }}: {{ $addOn | quote }}
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
     {{- end }}
   {{- end }}
 
