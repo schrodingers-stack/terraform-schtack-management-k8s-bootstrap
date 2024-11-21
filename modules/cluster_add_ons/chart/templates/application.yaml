@@ -46,11 +46,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    {{- if $addOn.namespace }}
-    namespace: {{ $addOn.namespace }}
-    {{- else -}}
-    namespace: {{ $addOn.name }}
-    {{- end }}
+    namespace: {{ $addOn.namespace | default $addOn.name }}
 
   info:
   - name: Chart repository
