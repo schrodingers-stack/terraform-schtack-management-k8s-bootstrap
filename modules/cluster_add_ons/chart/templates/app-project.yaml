@@ -5,20 +5,21 @@
 {{/* Create local list of namespaces. */}}
 {{- $defaultNamespace := include "mgmt-add-ons.namespace" $ -}}
 {{- $namespaces := list $defaultNamespace -}}
+{{- $namespaces := append $namespaces "kube-system" -}}
 {{/* Range over .Values.clusterAddOns.addOnList and add any extra namespaces or repositories to the respective lists. */}}
 {{- range $addOn := $.Values.clusterAddOns.addOnList -}}
   {{- if $addOn.chartRepoURL -}}
-    {{ $sourceRepos = append $sourceRepos $addOn.chartRepoURL }}
+    {{- $sourceRepos = append $sourceRepos $addOn.chartRepoURL -}}
   {{- else -}}
-    {{ $sourceRepos = append $sourceRepos (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) }}
+    {{- $sourceRepos = append $sourceRepos (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) -}}
   {{- end -}}
   {{- if $addOn.valuesRepoURL -}}
-    {{ $sourceRepos = append $sourceRepos $addOn.valuesRepoURL }}
+    {{- $sourceRepos = append $sourceRepos $addOn.valuesRepoURL -}}
   {{- end -}}
   {{- if $addOn.namespace -}}
-    {{ $namespaces = append $namespaces $addOn.namespace }}
+    {{- $namespaces = append $namespaces $addOn.namespace -}}
   {{- else -}}
-    {{ $namespaces = append $namespaces $addOn.name }}
+    {{- $namespaces = append $namespaces $addOn.name -}}
   {{- end -}}
 {{- end -}}
 {{/* Remove duplicates from the lists. */}}
