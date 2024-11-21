@@ -7,17 +7,19 @@
 {{- $namespaces := list $defaultNamespace -}}
 {{/* Range over .Values.clusterAddOns.addOnList and add any extra namespaces or repositories to the respective lists. */}}
 {{- range $addOn := $.Values.clusterAddOns.addOnList -}}
-  {{ if $addOn.chartRepoURL }}
+  {{- if $addOn.chartRepoURL -}}
     {{ $sourceRepos = append $sourceRepos $addOn.chartRepoURL }}
-  {{ else }}
+  {{- else -}}
     {{ $sourceRepos = append $sourceRepos (printf "https://github.com/schrodingers-stack/helm-%s" $addOn.name) }}
-  {{ end }}
-  {{ if $addOn.valuesRepoURL }}
+  {{- end -}}
+  {{- if $addOn.valuesRepoURL -}}
     {{ $sourceRepos = append $sourceRepos $addOn.valuesRepoURL }}
-  {{ end }}
-  {{ if $addOn.namespace }}
+  {{- end -}}
+  {{- if $addOn.namespace -}}
     {{ $namespaces = append $namespaces $addOn.namespace }}
-  {{ end }}
+  {{- else -}}
+    {{ $namespaces = append $namespaces $addOn.name }}
+  {{- end -}}
 {{- end -}}
 {{/* Remove duplicates from the lists. */}}
 {{- $sourceRepos = $sourceRepos | uniq -}}
