@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.1.1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.0...v0.1.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* add default namespace and remove whitespace ([cc2cc07](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/cc2cc07d246d80321e85bd8f179a6743f1861e06))
+* add kube-system to the allow list by default ([11d2b08](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/11d2b086b441c4a741cb4331c884207b7e21f8cc))
+* correct the attribute on the annotation range ([8e5b9da](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/8e5b9da8de0cfb5a6c8873e97bb8c8a83409ac34))
+* fix template issue in the Application when using default namespace ([72731e3](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/72731e3804f2f2e3940e8c038b1bbd8768b53c5c))
+* fix the creation of duplicate AppProjects ([9a62680](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/9a626801adc2384fe414da9ae0cd7cbedfc7f716))
+
+
+### Documentation
+
+* add documentation to explain the addOnList attribute ([be43e7c](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/be43e7cb5215b28e93f84ee0de68a43ecb0db702))
+
+
+### Miscellaneous Chores
+
+* add tag to update version on file ([9e5d97a](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/9e5d97ad414ee5b286981d8285cf38cb8f4e7768))
+* add/edit release-please-config.json ([0abd947](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/0abd9477dd49d4ae32b60be43c01fdc235a701c8))
+* add/edit release-please-config.json ([19123f6](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/19123f64632e7cc4e280c1fc2fe5eeaa315d30ff))
+* add/edit release-please-config.json ([07a3d7b](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/07a3d7bc6d6c30d491c888ff93f7d42f0d5cd804))
+* add/edit release-please-config.json ([987f262](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/987f262097b0e9e9d69d380887f5b08aa5c76d0c))
+
 ## 0.1.0 (2024-11-20)
 
 

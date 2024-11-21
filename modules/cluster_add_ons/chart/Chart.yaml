@@ -1,5 +1,7 @@
 apiVersion: v2
 name: management-k8s-add-ons
-version: 0.1.0 # x-release-please-version
-description: Helm chart for bootstrapping an Argo CD AppProject and Applications for managing the cluster add-ons
+version: 0.1.1
+description: >-
+  Helm chart for bootstrapping an Argo CD AppProject and Applications for
+  managing the cluster add-ons
 home: https://schtack.cloud
