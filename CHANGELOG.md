@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.1...v0.1.2) (2024-11-21)
+
+
+### Bug Fixes
+
+* correct the templating when using extraValues key ([170a116](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/170a1168de78f466c660f122ca90e0e144f55da2))
+
 ## [0.1.1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.0...v0.1.1) (2024-11-21)
 
 
