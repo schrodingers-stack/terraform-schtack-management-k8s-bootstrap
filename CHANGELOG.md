@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.0...v0.1.1) (2024-11-21)
+
+
+### Miscellaneous Chores
+
+* add tag to update version on file ([9e5d97a](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/9e5d97ad414ee5b286981d8285cf38cb8f4e7768))
+* add/edit release-please-config.json ([19123f6](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/19123f64632e7cc4e280c1fc2fe5eeaa315d30ff))
+* add/edit release-please-config.json ([07a3d7b](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/07a3d7bc6d6c30d491c888ff93f7d42f0d5cd804))
+* add/edit release-please-config.json ([987f262](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/987f262097b0e9e9d69d380887f5b08aa5c76d0c))
+
 ## 0.1.0 (2024-11-20)
 
 
