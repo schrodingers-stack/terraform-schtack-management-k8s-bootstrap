@@ -36,9 +36,9 @@ spec:
       {{- end }}
       - $values/{{ $.Values.platformName }}/{{ $addOn.name }}.yaml
       - $values/{{ $.Values.platformName }}/{{ $.Values.clusterName }}/{{ $addOn.name }}.yaml
-      {{- if $addOn.extraValues }}
+      {{- with $addOn.extraValues }}
       valuesObject:
-        {{ $addOn.extraValues | toYaml }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
   - repoURL: {{ $addOn.valuesRepoURL | default $.Values.clusterAddOns.commonValuesRepoURL }}
     targetRevision: {{ $addOn.valuesTargetRevision | default "HEAD" }}
