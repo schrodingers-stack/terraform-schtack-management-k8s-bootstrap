@@ -80,6 +80,9 @@ clusterAddOns:
   # URL of the values repository that will be used by default for every add-on.
   commonValuesRepoURL: https://github.com/user-or-organization/values-repository
 
+  # Global values that will be used by default for every add-on.
   globalValues: {}
 
+  # Global boolean to enable/disable auto-sync on applications. Can be overridden by the specific add-on configuration.
+  # @default -- true
   autoSync: true
