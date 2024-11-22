@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.3](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.2...v0.1.3) (2024-11-22)
+
+
+### Features
+
+* implement a variable to pass global values to all add-ons ([7ec05d8](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/7ec05d80de69e59529653835384ecb3d53f0fcf1))
+
+
+### Documentation
+
+* document values without documentation ([4d34031](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/4d34031b44552d60be1ceceb4db645efbcc956c5))
+
+
+### Miscellaneous Chores
+
+* merge pull request [#10](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/issues/10) from schrodingers-stack/feat/global-values ([5998f91](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/5998f91c4cf2ca1a5a3872887866bbd7357ccd55))
+* remove TODOs that have moved to issues ([9ac3aad](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/9ac3aad9b28b348b3f93600278b06020c0fec086))
+
 ## [0.1.2](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.1...v0.1.2) (2024-11-21)
 
 
