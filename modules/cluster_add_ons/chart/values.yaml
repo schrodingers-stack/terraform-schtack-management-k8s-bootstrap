@@ -80,7 +80,6 @@ clusterAddOns:
   # URL of the values repository that will be used by default for every add-on.
   commonValuesRepoURL: https://github.com/user-or-organization/values-repository
 
-  # TODO Not yet implemented
-  commonValues:
+  globalValues: {}
 
   autoSync: true
