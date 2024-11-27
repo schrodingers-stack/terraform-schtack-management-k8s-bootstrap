@@ -44,7 +44,7 @@ metadata:
     {{- end }}
 
 spec:
-  description: Cluster addons for the in-cluster applications
+  description: Cluster add-ons for the in-cluster applications
 
   sourceRepos:
   {{- range $repo := $sourceRepos }}
