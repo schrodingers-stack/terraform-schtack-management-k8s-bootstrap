@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.4](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.3...v0.1.4) (2024-11-27)
+
+
+### Miscellaneous Chores
+
+* add empty outputs.tf files ([cd96b33](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/cd96b33dce61d7ec24c58daa79693c77efb627b7))
+
+
+### Code Refactoring
+
+* simplify code by removing submodules ([8bdb089](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/8bdb0894ea541c99b7245e03437769980c197b11))
+
 ## [0.1.3](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.2...v0.1.3) (2024-11-22)
 
 
