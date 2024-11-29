@@ -1,0 +1,31 @@
+# Name of the cluster.
+# This is the name the Kubernetes cluster where the add-ons are being deployed, typically the it is the name of the 
+# platform with the color of the cluster when following the blue-green deployment strategy.
+clusterName: ""
+
+# Provide a name in place of the default name for the chart.
+# Currently only used for the AppProject resource.
+# @default -- `.Values.platformName`-`.Values.clusterName`
+nameOverride: ""
+
+# Completely override the fully qualified name of the chart.
+fullnameOverride: ""
+
+# Override the namespace where the chart resources are deployed, typically the namespace where Argo CD resides.
+namespaceOverride: ""
+
+# Common labels for the all resources.
+commonLabels: {}
+
+# TODO Add documentation
+parentAppConfig:
+
+  childAppsGeneratorChartRepo: https://github.com/schrodingers-stack/helm-schtack-add-ons-bootstrap.git
+  
+  childAppsGeneratorChartTargetRevision: main
+  
+  childAppsGeneratorChartPath: .
+
+  childAppsGeneratorChartValues: {}
+
+  autosync: true

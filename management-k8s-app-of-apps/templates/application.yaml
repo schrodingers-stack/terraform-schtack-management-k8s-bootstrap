@@ -1,0 +1,62 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ template "mgmt-app-of-apps.fullname" $ }}-app-of-apps
+  namespace: {{ template "mgmt-app-of-apps.namespace" $ }}
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    {{- include "mgmt-app-of-apps.labels" (dict "context" $ ) | nindent 4 }}
+    {{- with $.Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+
+spec:
+  project: app-of-apps-project
+
+  sources:
+  - repoURL: {{ $.Values.parentAppConfig.childAppsGeneratorChartRepo }}
+    targetRevision: {{ $.Values.parentAppConfig.childAppsGeneratorChartTargetRevision }}
+    path: {{ $.Values.parentAppConfig.childAppsGeneratorChartPath }}
+    helm:
+      releaseName: {{ $.Values.clusterName }}-app-of-apps
+      {{- with $.Values.parentAppConfig.childAppsGeneratorChartValues }}
+      valuesObject:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ $.Values.clusterName }} # The namespace where the Applications generated will reside.
+
+  info:
+  - name: Chart repository
+    value: {{ $.Values.parentAppConfig.childAppsGeneratorChartRepo }}
+
+  syncPolicy:
+    {{- if $.Values.parentAppConfig.autoSync }}
+    automated:
+      prune: true
+      selfHeal: true
+    {{- end }}
+    syncOptions:
+    - CreateNamespace=true
+    retry:
+      limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+      backoff:
+        duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+        factor: 2 # a factor to multiply the base duration after each failed retry
+        maxDuration: 3m
+  
+  ignoreDifferences:
+    - group: "*"
+      kind: "Application"
+      namespace: "*"
+      jsonPointers:
+        # Allow manually disabling auto sync for children apps, useful for debugging.
+        - /spec/syncPolicy/automated
+        # These are automatically updated on a regular basis. Not ignoring last applied configuration since it's used 
+        # for computing diffs after normalization.
+        - /metadata/annotations/argocd.argoproj.io~1refresh
+        - /operation

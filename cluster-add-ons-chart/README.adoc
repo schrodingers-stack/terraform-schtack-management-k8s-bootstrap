@@ -1,3 +1,0 @@
-= management-k8s-add-ons
-
-Helm chart for bootstrapping an Argo CD AppProject and Applications for managing the cluster add-ons in a management/main Kubernetes cluster.

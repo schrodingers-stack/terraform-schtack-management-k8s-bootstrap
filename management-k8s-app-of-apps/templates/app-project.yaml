@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  # This needs to be hardcoded. The app of apps applications will depend on this being static.
+  name: app-of-apps-project
+  namespace: {{ template "mgmt-app-of-apps.namespace" $ }}
+  labels:
+    {{- include "mgmt-app-of-apps.labels" (dict "context" $ ) | nindent 4 }}
+    {{- with $.Values.commonLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+
+spec:
+  description: Project to host all the App of Apps Applications for managing the cluster add-ons
+
+  sourceRepos:
+  - {{ $.Values.parentAppConfig.childAppsGeneratorChartRepo }}
+  
+  destinations:
+  - name: in-cluster
+    namespace: "*"
+  - server: https://kubernetes.default.svc
+    namespace: "*"
+
+  namespaceResourceWhitelist:
+  - group: argoproj.io
+    kind: AppProject
+  - group: argoproj.io
+    kind: Application
+  - group: argoproj.io
+    kind: ApplicationSet
+  - group: external-secrets.io
+    kind: ExternalSecret
+  
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: Namespace
+
+  orphanedResources:
+    warn: false

@@ -6,7 +6,7 @@ resource "helm_release" "argo_cd_bootstrap" {
   chart      = yamldecode(data.github_repository_file.chart_definition.content).dependencies[0].name
   version    = yamldecode(data.github_repository_file.chart_definition.content).dependencies[0].version
 
-  namespace        = "argo-cd"
+  namespace        = var.argo_cd_namespace
   create_namespace = true
   # FIXME Find a better way to get only the values inside the `argo-cd` key.
   values = [yamlencode(yamldecode(data.utils_deep_merge_yaml.values.output).argo-cd)]
@@ -25,12 +25,12 @@ resource "time_sleep" "argo_cd_crd_wait" {
   depends_on      = [resource.helm_release.argo_cd_bootstrap]
 }
 
-resource "helm_release" "cluster_add_ons" {
-  name      = "management-cluster-add-ons"
-  chart     = "${path.module}/cluster-add-ons-chart"
-  namespace = "argo-cd"
+resource "helm_release" "app_of_apps" {
+  name      = "management-k8s-app-of-apps"
+  chart     = "${path.module}/management-k8s-app-of-apps"
+  namespace = var.argo_cd_namespace
 
-  values = var.cluster_add_ons_helm_values != null ? [var.cluster_add_ons_helm_values] : []
+  values = var.parent_app_helm_values != null ? [var.parent_app_helm_values] : []
 
   depends_on = [resource.time_sleep.argo_cd_crd_wait]
 }
