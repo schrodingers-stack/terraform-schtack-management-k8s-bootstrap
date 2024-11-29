@@ -28,4 +28,4 @@ parentAppConfig:
 
   childAppsGeneratorChartValues: {}
 
-  autosync: true
+  autoSync: true
