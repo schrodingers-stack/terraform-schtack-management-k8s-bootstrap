@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.2.0](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.4...v0.2.0) (2024-11-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate to an app of apps pattern
+
+### Features
+
+* migrate to an app of apps pattern ([511492e](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/511492eb907f073b1270971235c2920315fa9fca))
+
+
+### Miscellaneous Chores
+
+* add/edit release-please-config.json ([4f488a3](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/4f488a3ab3995605cd09fa3daff091d2afeb559a))
+* add/edit release-please-config.json ([692d2f1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/692d2f14ab9bc90e31a501c0732fe13d7c5ff7a1))
+
 ## [0.1.4](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.3...v0.1.4) (2024-11-27)
 
 
