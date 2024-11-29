@@ -4,8 +4,6 @@ kind: Application
 metadata:
   name: {{ template "mgmt-app-of-apps.fullname" $ }}-app-of-apps
   namespace: {{ template "mgmt-app-of-apps.namespace" $ }}
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
   labels:
     {{- include "mgmt-app-of-apps.labels" (dict "context" $ ) | nindent 4 }}
     {{- with $.Values.commonLabels }}
