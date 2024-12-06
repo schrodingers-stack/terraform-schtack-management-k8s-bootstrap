@@ -37,7 +37,7 @@ variable "parent_app_helm_values" {
 
     [NOTE]
     ====
-    We know this is probably an over-engineered solution to and a lot of levels of configuration. However, these charts configurations are never meant to be frequenttly changed, and we believe this is a good trade-off for the sake of flexibility and maintainability.
+    We know this is probably an over-engineered solution and a lot of levels of configuration. However, these charts configurations are never meant to be frequently changed, and we believe this is a good trade-off for the sake of flexibility and maintainability.
     ====
   EOT
 }
