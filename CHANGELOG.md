@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.2.1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.2.0...v0.2.1) (2024-12-06)
+
+
+### Features
+
+* add prefix to destination namespace ([845af71](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/845af7177d7c30bb094a35473a85e970c1150d06))
+* shorten-prefix to improve display in Argo CD UI ([2529201](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/2529201ca74df75b4125eed478ef55da6b82f5c4))
+
+
+### Bug Fixes
+
+* correct case in key of autoSync ([858644d](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/858644d6a7a2c5f3b7b977c395666dfa70a8ba9d))
+* remove finalizer impeding a proper Terraform destroy ([78630f7](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/78630f7cbcbbe7c26bc09389f241bb56ad1aeadc))
+
+
+### Documentation
+
+* fix small typo in variable description ([0555b54](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/0555b541db64d7f5c4c4dab4335338f8a7048924))
+
 ## [0.2.0](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.1.4...v0.2.0) (2024-11-29)
 
 
