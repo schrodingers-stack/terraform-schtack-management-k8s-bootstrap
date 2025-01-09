@@ -1,28 +1,26 @@
 # NOTE: the variables in this file are organized in alphabetical order.
 
 variable "argo_cd_bootstrap_repository" {
+  description = "The GitHub repository where the `Chart.yaml` and `values.yaml` files for Argo CD are to be retrieved."
   type        = string
   nullable    = false
   default     = "schrodingers-stack/helm-argo-cd"
-  description = "The GitHub repository where the `Chart.yaml` and `values.yaml` files for Argo CD are to be retrieved."
 }
 
 variable "argo_cd_bootstrap_target_revision" {
+  description = "The branch or tag of the repository where the `Chart.yaml`and `values.yaml` files for Argo CD are to be retrieved."
   type        = string
   nullable    = false
-  description = "The branch or tag of the repository where the `Chart.yaml`and `values.yaml` files for Argo CD are to be retrieved."
 }
 
 variable "argo_cd_namespace" {
+  description = "The namespace where the Argo CD will be installed."
   type        = string
   nullable    = false
   default     = "argo-cd"
-  description = "The namespace where the Argo CD will be installed."
 }
 
 variable "parent_app_helm_values" {
-  type        = string
-  default     = null
   description = <<-EOT
     The values to be passed to the `management-k8s-app-of-apps` Helm chart. These should be in raw YAML format.
 
@@ -40,4 +38,6 @@ variable "parent_app_helm_values" {
     We know this is probably an over-engineered solution and a lot of levels of configuration. However, these charts configurations are never meant to be frequently changed, and we believe this is a good trade-off for the sake of flexibility and maintainability.
     ====
   EOT
+  type        = string
+  default     = null
 }
