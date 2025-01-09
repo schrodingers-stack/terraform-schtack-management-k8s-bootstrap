@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.2.1...v0.2.2) (2025-01-09)
+
+
+### Styles
+
+* move descriptions up in the variables ([c5f9d5b](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/commit/c5f9d5b50fba4999354da43a2651c7a709d2dd8c))
+
 ## [0.2.1](https://github.com/schrodingers-stack/terraform-schtack-management-k8s-bootstrap/compare/v0.2.0...v0.2.1) (2024-12-06)
 
 

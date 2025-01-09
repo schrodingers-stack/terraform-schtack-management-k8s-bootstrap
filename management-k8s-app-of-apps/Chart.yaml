@@ -1,6 +1,6 @@
 apiVersion: v2
 name: management-k8s-app-of-apps
-version: 0.2.1
+version: 0.2.2
 description: >-
   Helm chart for bootstrapping an Argo CD AppProject that will contain all the
   App of Apps Applications for managing the cluster add-ons
